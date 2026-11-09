@@ -16,5 +16,7 @@ export const BASE_LABELS: Readonly<Record<number, string>> = {
 };
 
 export function normalizeSettings(settings: Settings): Settings {
-  throw new Error(`not implemented: ${settings.base}`);
+  const lengths = availableLengths(settings.base);
+  if (lengths.includes(settings.length)) return settings;
+  return { ...settings, length: lengths[lengths.length - 1] };
 }
