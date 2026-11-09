@@ -24,3 +24,7 @@ export function addRecord(
 ): GameRecord[] {
   return [...records, record].sort(byAttemptsThenTime).slice(0, topN);
 }
+
+export function parseRecords(raw: string | null): GameRecord[] {
+  throw new Error(`not implemented: ${raw}`);
+}
