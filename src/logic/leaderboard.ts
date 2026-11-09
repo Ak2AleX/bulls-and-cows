@@ -25,6 +25,22 @@ export function addRecord(
   return [...records, record].sort(byAttemptsThenTime).slice(0, topN);
 }
 
+const isGameRecord = (value: unknown): value is GameRecord =>
+  typeof value === 'object' &&
+  value !== null &&
+  typeof (value as GameRecord).attempts === 'number' &&
+  typeof (value as GameRecord).timeMs === 'number';
+
 export function parseStoredRecords(raw: string | null): GameRecord[] {
-  throw new Error(`not implemented: ${raw}`);
+  if (!raw) return [];
+  try {
+    const data: unknown = JSON.parse(raw);
+    return Array.isArray(data)
+      ? data
+          .filter(isGameRecord)
+          .map(({ attempts, timeMs }) => ({ attempts, timeMs }))
+      : [];
+  } catch {
+    return [];
+  }
 }
