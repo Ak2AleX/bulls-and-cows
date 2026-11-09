@@ -13,3 +13,4 @@
 | createDigitValidator | O(1), потому что алфавит ограничен 16 символами | slice и includes по строке длиной не больше 16 |
 | isValidGuess | O(length) | один проход для ever` и один для построения Set |
 | evaluateGuess | O(length²) | includes внутри filter сам проходит по секрету; с Set секрета было бы O(length), но при длине не больше 6 разницы нет |
+| generateSecret | O(length · base) | length шагов рекурсии, на каждом filter проходит по пулу из не более чем base элементов |
