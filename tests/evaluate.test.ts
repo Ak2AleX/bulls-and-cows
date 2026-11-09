@@ -27,4 +27,8 @@ describe('evaluateGuess', () => {
   it('does not depend on the case of the secret', () => {
     expect(evaluateGuess('AB12', 'ab12')).toEqual({ bulls: 4, cows: 0 });
   });
+
+  it('counts cows when some digits are absent from the secret', () => {
+    expect(evaluateGuess('0123', '1235')).toEqual({ bulls: 0, cows: 3 });
+  });
 });
