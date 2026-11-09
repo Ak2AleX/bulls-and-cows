@@ -25,6 +25,6 @@ export function addRecord(
   return [...records, record].sort(byAttemptsThenTime).slice(0, topN);
 }
 
-export function parseRecords(raw: string | null): GameRecord[] {
+export function parseStoredRecords(raw: string | null): GameRecord[] {
   throw new Error(`not implemented: ${raw}`);
 }

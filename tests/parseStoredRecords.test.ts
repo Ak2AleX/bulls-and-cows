@@ -1,23 +1,23 @@
 import { describe, expect, it } from 'vitest';
-import { parseRecords } from '../src/logic/leaderboard.js';
+import { parseStoredRecords } from '../src/logic/leaderboard.js';
 
-describe('parseRecords', () => {
+describe('parseStoredRecords', () => {
   it('returns an empty list when nothing is stored', () => {
-    expect(parseRecords(null)).toEqual([]);
+    expect(parseStoredRecords(null)).toEqual([]);
   });
 
   it('returns an empty list for an empty string', () => {
-    expect(parseRecords('')).toEqual([]);
+    expect(parseStoredRecords('')).toEqual([]);
   });
 
   it('returns an empty list for invalid JSON', () => {
-    expect(parseRecords('{not json')).toEqual([]);
+    expect(parseStoredRecords('{not json')).toEqual([]);
   });
 
   it('returns an empty list when the JSON is not an array', () => {
-    expect(parseRecords('{"attempts":3,"timeMs":1000}')).toEqual([]);
-    expect(parseRecords('42')).toEqual([]);
-    expect(parseRecords('"text"')).toEqual([]);
+    expect(parseStoredRecords('{"attempts":3,"timeMs":1000}')).toEqual([]);
+    expect(parseStoredRecords('42')).toEqual([]);
+    expect(parseStoredRecords('"text"')).toEqual([]);
   });
 
   it('restores a list that was saved with JSON.stringify', () => {
@@ -25,7 +25,7 @@ describe('parseRecords', () => {
       { attempts: 3, timeMs: 12000 },
       { attempts: 5, timeMs: 9000 },
     ];
-    expect(parseRecords(JSON.stringify(records))).toEqual(records);
+    expect(parseStoredRecords(JSON.stringify(records))).toEqual(records);
   });
 
   it('drops entries with missing or wrongly typed fields', () => {
@@ -37,11 +37,11 @@ describe('parseRecords', () => {
       null,
       'junk',
     ]);
-    expect(parseRecords(raw)).toEqual([{ attempts: 3, timeMs: 12000 }]);
+    expect(parseStoredRecords(raw)).toEqual([{ attempts: 3, timeMs: 12000 }]);
   });
 
   it('keeps only attempts and timeMs from each entry', () => {
     const raw = JSON.stringify([{ attempts: 2, timeMs: 1000, extra: 'x' }]);
-    expect(parseRecords(raw)).toEqual([{ attempts: 2, timeMs: 1000 }]);
+    expect(parseStoredRecords(raw)).toEqual([{ attempts: 2, timeMs: 1000 }]);
   });
 });
