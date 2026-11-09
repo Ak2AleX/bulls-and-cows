@@ -2,5 +2,5 @@ export const LENGTHS = [2, 3, 4, 5, 6] as const;
 export const BASES = [2, 8, 10, 16] as const;
 
 export function availableLengths(base: number): number[] {
-  throw new Error(`not implemented: ${base}`);
+  return LENGTHS.filter((length) => length <= base);
 }
