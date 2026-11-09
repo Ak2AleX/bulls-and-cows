@@ -9,7 +9,7 @@
     "test": "vitest run --passWithNoTests",
     "build": "tsc",
     "prepare": "husky",
-    "deploy": "npm run build && gh-pages -d . -s \"{index.html,dist/**}\""
+    "deploy": "npm run build && gh-pages -d . -s \"{index.html,styles.css,dist/**}\""
   },
   "repository": {
     "type": "git",
